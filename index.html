@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Malin Pavanan — Frontend Developer</title>
+
+    <!-- Tailwind Play CDN (good for prototyping & GitHub Pages) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Tailwind custom tokens */
+      :root {
+        --bg: #0b1020;
+        --card: #0f1724;
+        --muted: #98a0b3;
+        --accent: #7c5cff; /* primary accent */
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: linear-gradient(180deg, var(--bg), #061021);
+        color: #e6eef8;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+      }
+      /* navbar */
+      .sticky {
+        transform: translateY(0);
+      }
+      /* small helpers for the unconventional layout */
+      .side-hero {
+        min-height: 60vh;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+      @media (max-width: 900px) {
+        .side-hero {
+          grid-template-columns: 1fr;
+          padding: 2rem 1rem;
+        }
+      }
+      main.container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px 10px;
+      }
+      .glass {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.015)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(6px);
+      }
+      /* project card finer styles */
+      article.card {
+        transition: all 0.3s ease-in-out;
+      }
+      article.card:hover {
+        border: 1px solid #5b40cf;
+        box-shadow: 1.5px 1px 6px 2px rgba(70, 57, 149, 0.52);
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .magnet {
+        transition: transform 0.28s cubic-bezier(0.22, 0.9, 0.32, 1);
+      }
+      .magnet:hover {
+        transform: translateY(-6px) scale(1.01);
+      }
+      /* project detail panel */
+      .panel {
+        width: min(840px, 95vw);
+        max-height: 92vh;
+        overflow: auto;
+        background: linear-gradient(180deg, #0b1220, #07101b);
+        border-left: 4px solid var(--accent);
+      }
+      /* subtle animated gradient accent */
+      .accent-underline {
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          var(--accent) 30%,
+          transparent 100%
+        );
+        background-size: 200% 100%;
+        background-position: 100% 0;
+        transition: background-position 0.8s ease;
+      }
+      .accent-underline:hover {
+        background-position: 0 0;
+      }
+      /* Timeline line */
+      .timeline-line {
+        width: 4px;
+        background: linear-gradient(180deg, var(--accent), #06b6d4);
+        border-radius: 4px;
+      }
+      .glass-header {
+        background-color: rgba(
+          15,
+          23,
+          42,
+          0.3
+        ); /* A semi-transparent slate-900 */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px); /* For Safari support */
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- Top nav (minimal) -->
+    <header
+      class="glass-header w-full top-0 left-0 z-40 py-3 px-6 -translate-y-90 transition-all duration-300">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <a class="flex items-center gap-3" href="#home">
+          <div
+            class="w-10 h-10 rounded-md bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg">
+            <span class="text-sm font-semibold">MP</span>
+          </div>
+          <div class="hidden md:block">
+            <div class="text-sm text-slate-300">Malin Pavanan</div>
+            <div class="text-xs text-slate-400">Frontend & UI Developer</div>
+          </div>
+        </a>
+        <nav class="hidden md:flex items-center gap-4">
+          <a href="#work" class="text-sm text-slate-300 hover:text-white">
+            Work
+          </a>
+          <a href="#about" class="text-sm text-slate-300 hover:text-white">
+            About
+          </a>
+          <a
+            href="#contact"
+            class="px-3 py-2 rounded-md text-sm glass hover:scale-105 transition">
+            Contact
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- HERO (unconventional: two-column with sideways CTA) -->
+      <section id="home" class="md:mb-12 mb-6 md:flex md:gap-8">
+        <div class="w-48 h-48 md:w-64 md:h-64 mb-6 md:mb-0 md:mx-0">
+          <img
+            src="./assets/images/profle_pic.jpg"
+            alt="myself"
+            class="w-full h-full object-contain grayscale shadow-lg" />
+        </div>
+        <div>
+          <div class="mb-6">
+            <div class="text-slate-400 text-sm">Hello — I’m</div>
+            <h1
+              class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+              Malin
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
+                Pavanan
+              </span>
+            </h1>
+            <p class="mt-4 text-slate-300 max-w-2xl">
+              I build UI-first web apps using Angular and modern frontend
+              patterns — focusing on responsive interfaces, polished
+              micro-animations, and clear UX. Based in Sharjah, available for
+              immediate joining with visa sponsorship.
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <a
+              href="#work"
+              class="inline-flex items-center gap-3 px-4 py-2 rounded-md glass magnet">
+              <svg
+                class="w-5 h-5 text-indigo-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+              <span>See my work</span>
+            </a>
+            <a
+              href="mailto:malinpavanan@gmail.com"
+              class="inline-flex items-center gap-3 px-4 py-2 rounded-md border border-white/6 text-sm hover:scale-105 transition">
+              Email me
+            </a>
+          </div>
+
+          <div class="mt-8 text-slate-400 text-sm">Quick facts</div>
+          <div class="mt-3 flex gap-4">
+            <div class="glass px-4 py-3 rounded-md text-xs">
+              <div class="text-slate-200 font-medium">Angular</div>
+              <div class="text-slate-400">UI & animations</div>
+            </div>
+            <div class="glass px-4 py-3 rounded-md text-xs">
+              <div class="text-slate-200 font-medium">Responsive</div>
+              <div class="text-slate-400">Mobile-first</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="parent-container side-hero">
+        <!-- TIMELINE -->
+        <div id="timeline" class="glass rounded-2xl p-4 h-auto">
+          <div class="flex items-center justify-between">
+            <div class="font-semibold">Career Timeline</div>
+          </div>
+          <div class="mt-6 flex gap-4">
+            <div class="w-2">
+              <div class="timeline-line h-full rounded"></div>
+            </div>
+            <div class="flex-1 space-y-4" id="timelineList"></div>
+          </div>
+        </div>
+        <!-- Right column: contact card + floating tech icons -->
+        <aside class="relative">
+          <div class="glass p-6 rounded-xl card shadow-xl">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">Available</div>
+                <div class="text-lg font-semibold">UAE 🇦🇪</div>
+              </div>
+              <div class="text-right text-xs text-slate-400">
+                Open to visa sponsorship
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="text-xs text-slate-400">Contact</div>
+              <div class="mt-2 flex items-center gap-2">
+                <a href="mailto:malinpavanan@gmail.com" class="text-sm">
+                  malinpavanan@gmail.com
+                </a>
+              </div>
+              <a class="mt-2 text-sm text-slate-300" href="Tel: +971508916066">
+                +971 • 508916066
+              </a>
+            </div>
+
+            <div class="mt-6 flex gap-2">
+              <a
+                href="./assets/files/malin_cv_uae.pdf"
+                download
+                class="text-xs px-3 flex items-center justify-center py-2 cursor-pointer rounded-md border border-white/6">
+                Resume
+              </a>
+              <a
+                href="https://github.com/Malin-P"
+                target="_blank"
+                class="text-2xl px-3 py-2 cursor-pointer">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 496 512"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+                </svg>
+              </a>
+              <a
+                href="www.linkedin.com/in/malinxart"
+                target="_blank"
+                class="text-2xl px-3 py-2 cursor-pointer">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 448 512"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="hidden md:block mt-6">
+            <!-- floating tech cloud -->
+            <div id="tech-cloud" class="mt-6 space-y-3">
+              <div class="flex gap-2">
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  Angular
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  HTML
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  Scss
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  Tailwind
+                </span>
+              </div>
+              <div class="flex gap-2">
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  TypeScript
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  GSAP
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  Bootstrap
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  RxJS
+                </span>
+                <span class="px-2 py-1 text-xs rounded-md bg-white/3">
+                  Figma
+                </span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- WORK / Projects — unconventional masonry w/ expand -->
+      <section id="work" class="mb-12">
+        <h2 class="text-3xl font-bold mb-4">Selected Work</h2>
+        <p class="text-slate-400 mb-6 max-w-2xl">
+          Showcasing my frontend journey: building responsive, functional, and
+          user-friendly interfaces across diverse projects. Every project has
+          been a step in learning, improving, and enjoying the craft of bringing
+          ideas to life.
+        </p>
+
+        <div
+          id="grid"
+          class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Project Card 1 -->
+          <article
+            class="card p-4 rounded-xl magnet cursor-pointer"
+            data-project="0"
+            aria-label="Project: Goods Delivery App">
+            <div class="relative rounded-md overflow-hidden">
+              <img
+                src="./assets/images/carter_app.png"
+                alt="project screenshot"
+                class="w-full h-40 object-cover transition-all duration-500 transform group-hover:scale-105"
+                style="filter: grayscale(100%) brightness(40%); opacity: 0.5"
+                onmouseenter="this.style.filter='grayscale(0%) brightness(100%)';this.style.opacity='1';"
+                onmouseleave="this.style.filter='grayscale(100%) brightness(40%)'; this.style.opacity='0.5'; " />
+              <div class="absolute left-4 bottom-4">
+                <div class="text-lg text-slate-200 font-semibold">
+                  Hauleer Wheels - Mobile App
+                </div>
+                <div class="text-xs text-slate-400">
+                  Ionic Framework • Mobile App
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">Online Truck booking app</h3>
+              <p class="text-slate-400 text-sm mt-2">
+                Truck booking app with detailed profiles, shipment history, and
+                real-time shipment status & notifications for seamless tracking.
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <span class="text-xs px-3 py-1 rounded-full glass">
+                  Ionic Framework
+                </span>
+                <span class="text-xs px-3 py-1 rounded-full glass">
+                  Bootstrap
+                </span>
+                <a
+                  class="ml-auto text-xs text-slate-300 h-8 w-20 p-1.5 flex items-center justify-center accent-underline">
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project Card 2 -->
+          <article
+            class="card p-4 rounded-xl magnet cursor-pointer"
+            data-project="1"
+            aria-label="Project: Taskmanagement app">
+            <div class="relative rounded-md overflow-hidden">
+              <img
+                src="./assets/images/seekerpro_webapp.png"
+                alt="project screenshot"
+                class="w-full h-40 object-cover transition-all duration-500 transform group-hover:scale-105"
+                style="filter: grayscale(100%) brightness(40%)"
+                onmouseenter="this.style.filter='grayscale(0%) brightness(100%)';"
+                onmouseleave="this.style.filter='grayscale(100%) brightness(40%)';" />
+              <div class="absolute left-4 bottom-4">
+                <div class="text-lg text-slate-200 font-semibold">
+                  Seekerpro. (UI Only)
+                </div>
+                <div class="text-xs text-slate-400">Dashboard</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">
+                Project & Task Mangement Web App
+              </h3>
+              <p class="text-slate-400 text-sm mt-2">
+                A task and project management web application UI featuring
+                dashboards for tracking projects, Tasks, Users and
+                notifications.
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <span class="text-xs px-3 py-1 rounded-full glass">HTML</span>
+                <span class="text-xs px-3 py-1 rounded-full glass">CSS</span>
+                <span class="text-xs px-3 py-1 rounded-full glass">JS</span>
+                <a
+                  class="ml-auto text-xs text-slate-300 h-8 w-20 p-1.5 flex items-center justify-center accent-underline">
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project Card 3 -->
+          <article
+            class="card p-4 rounded-xl magnet cursor-pointer"
+            data-project="2"
+            aria-label="Project: Tranzcars">
+            <div class="relative rounded-md overflow-hidden">
+              <img
+                src="./assets/images/tranzcars.png"
+                alt="project screenshot"
+                class="w-full h-40 object-cover transition-all duration-500 transform group-hover:scale-105"
+                style="filter: grayscale(100%) brightness(40%)"
+                onmouseenter="this.style.filter='grayscale(0%) brightness(100%)';"
+                onmouseleave="this.style.filter='grayscale(100%) brightness(40%)';" />
+              <div class="absolute left-4 bottom-4">
+                <div class="text-lg text-slate-200 font-semibold">
+                  Tranzcars(UI only)
+                </div>
+                <div class="text-xs text-slate-400">UI • Micro Animations</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">Car Rental Web App</h3>
+              <p class="text-slate-400 text-sm mt-2">
+                A self-drive car rental website UI featuring easy vehicle
+                browsing, booking workflows, user profiles, and real-time
+                support notifications.
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <span class="text-xs px-3 py-1 rounded-full glass">HTML</span>
+                <span class="text-xs px-3 py-1 rounded-full glass">SCSS</span>
+                <a
+                  class="ml-auto text-xs text-slate-300 h-8 w-20 p-1.5 flex items-center justify-center accent-underline">
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
+          <!-- Project Card 4 -->
+          <article
+            class="card p-4 rounded-xl magnet cursor-pointer"
+            data-project="3"
+            aria-label="Project: CCPS">
+            <div class="relative rounded-md overflow-hidden">
+              <img
+                src="./assets/images/ccps.png"
+                alt="project screenshot"
+                class="w-full h-40 object-cover transition-all duration-500 transform group-hover:scale-105"
+                style="filter: grayscale(100%) brightness(40%)"
+                onmouseenter="this.style.filter='grayscale(0%) brightness(100%)';"
+                onmouseleave="this.style.filter='grayscale(100%) brightness(40%)';" />
+              <div class="absolute left-4 bottom-4">
+                <div class="text-lg text-slate-200 font-semibold">CCPS</div>
+                <div class="text-xs text-slate-400">Web App • Angular</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">Insurance & Pension Portal</h3>
+              <p class="text-slate-400 text-sm mt-2">
+                A platform that helps companies manage employee insurance and
+                pension payments efficiently. It allows generating quarterly
+                insurance and pension reports.
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <span class="text-xs px-3 py-1 rounded-full glass">
+                  Angular
+                </span>
+                <span class="text-xs px-3 py-1 rounded-full glass">
+                  Bootstrap
+                </span>
+                <span class="text-xs px-3 py-1 rounded-full glass">RxJS</span>
+                <a
+                  class="ml-auto text-xs text-slate-300 h-8 w-20 p-1.5 flex items-center justify-center accent-underline">
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
+          <!-- Project Card 5 -->
+          <article
+            class="card p-4 rounded-xl magnet cursor-pointer"
+            data-project="4"
+            aria-label="Project: Architecture">
+            <div class="relative rounded-md overflow-hidden">
+              <img
+                src="./assets/images/architecture.png"
+                alt="project screenshot"
+                class="w-full h-40 object-cover transition-all duration-500 transform group-hover:scale-105"
+                style="filter: grayscale(100%) brightness(40%)"
+                onmouseenter="this.style.filter='grayscale(0%) brightness(100%)';"
+                onmouseleave="this.style.filter='grayscale(100%) brightness(40%)';" />
+              <div class="absolute left-4 bottom-4">
+                <div class="text-lg text-slate-200 font-semibold">
+                  Architecture
+                </div>
+                <div class="text-xs text-slate-400">UI • Micro Animations</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">
+                Architecture Portfolio (Personal Project)
+              </h3>
+              <p class="text-slate-400 text-sm mt-2">
+                The Architecture website is designed to showcase architectural
+                works through a modern, clean interface enhanced with GSAP
+                animations.
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <span class="text-xs px-3 py-1 rounded-full glass">HTML</span>
+                <span class="text-xs px-3 py-1 rounded-full glass">JS</span>
+                <span class="text-xs px-3 py-1 rounded-full glass">GSAP</span>
+                <a
+                  class="ml-auto text-xs text-slate-300 h-8 w-20 p-1.5 flex items-center justify-center accent-underline">
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- About (compact but different layout) -->
+      <section id="about" class="mb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2 glass p-6 rounded-xl">
+          <h3 class="text-2xl font-bold mb-2">About me</h3>
+          <p class="text-slate-300">
+            I care about building interfaces that feel intuitive — not just
+            functional. I translate product requirements into components with
+            clear responsibilities, focus on accessibility, and add motion that
+            aids comprehension (not distraction).
+          </p>
+          <div class="mt-4 grid grid-cols-2 gap-3">
+            <div class="text-xs text-slate-400">Focus</div>
+            <div class="text-xs text-slate-200">Angular & UI</div>
+
+            <div class="text-xs text-slate-400">Approach</div>
+            <div class="text-xs text-slate-200">
+              Component-first, accessible, testable
+            </div>
+
+            <div class="text-xs text-slate-400">Tooling</div>
+            <div class="text-xs text-slate-200">
+              Figma • Git • Postman • Firebase
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-6 rounded-xl flex flex-col gap-4">
+          <div>
+            <div class="text-xs text-slate-400">Availability</div>
+            <div class="text-lg font-semibold">Immediate</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-400">Location</div>
+            <div class="text-lg font-semibold">Sharjah/ Dubai/ Abu Dhabi</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-400">Looking for</div>
+            <div class="text-lg font-semibold">
+              Frontend(Angular) / UI roles
+            </div>
+          </div>
+          <a
+            href="mailto:malinpavanan@gmail.com"
+            class="mt-auto text-sm py-2 rounded-md text-center glass">
+            Email me
+          </a>
+        </div>
+      </section>
+
+      <!-- Contact footer -->
+      <section id="contact" class="pt-6 border-t border-white/5">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div class="text-xs text-slate-400">Want to work together?</div>
+            <div class="text-2xl font-bold">Let's build something useful.</div>
+          </div>
+          <div class="flex gap-3 items-center">
+            <a
+              href="mailto:malinpavanan@gmail.com"
+              class="px-4 py-2 rounded-md glass">
+              malinpavanan@gmail.com
+            </a>
+            <a
+              href="tel:+971508916066"
+              class="px-4 py-2 rounded-md border border-white/6">
+              call +971 • 508916066
+            </a>
+          </div>
+        </div>
+        <div class="mt-8 text-sm text-slate-500">
+          © 2025 Malin Pavanan — Frontend Developer. All Rights Reserved.
+        </div>
+      </section>
+    </main>
+
+    <!-- Project Detail Panel (hidden, slides in) -->
+    <div
+      id="detailWrap"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-6">
+      <div id="detailPanel" class="panel rounded-xl p-6">
+        <div class="w-full flex items-end justify-end">
+          <button
+            id="closePanel"
+            class="text-slate-300 py-1 px-2 glass border border-white/[.11] rounded-md">
+            Close ✕
+          </button>
+        </div>
+
+        <div id="detailContent">
+          <!-- Filled via JS -->
+        </div>
+      </div>
+    </div>
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- GSAP + Interaction Script -->
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Micro: header float
+      gsap.from("header", {
+        y: -20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+
+      // Hero headline reveal
+      gsap.from("h1", {
+        y: 20,
+        opacity: 0,
+        delay: 0.1,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+
+      // Stagger project card entrance
+      gsap.utils.toArray("#grid article").forEach((card, i) => {
+        gsap.from(card, {
+          y: 30,
+          opacity: 0,
+          delay: i * 0.12,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: card, start: "top 85%" },
+        });
+        // hover micro animation: image zoom
+        const img = card.querySelector("img");
+        card.addEventListener("mouseenter", () =>
+          gsap.to(img, { scale: 1.06, duration: 0.6, ease: "power3.out" })
+        );
+        card.addEventListener("mouseleave", () =>
+          gsap.to(img, { scale: 1, duration: 0.5, ease: "power3.out" })
+        );
+      });
+
+      // tech cloud float
+      gsap.to("#tech-cloud span", {
+        y: -6,
+        repeat: -1,
+        yoyo: true,
+        stagger: 0.2,
+        ease: "sine.inOut",
+        duration: 2,
+      });
+
+      // project data (dummy) — replace with real values
+      const projects = [
+        {
+          id: 0,
+          title: "Hauleer Wheels",
+          subtitle: "Goods Delivery App • Ionic Framework",
+          hero: "./assets/images/carter_app.png",
+          summary:
+            "Truck booking app with detailed profiles, shipment history, and real-time shipment status & notifications for seamless tracking.",
+          whatIdid: [
+            "Built multiple front-end modules including login, dashboard, goods submission, review, and shipment tracking sections",
+            "Built driver rating & truck booking forms with Angular Reactive Forms, including custom validators for data accuracy.",
+            "Implemented shipment status tracking in Ionic by integrating REST API services for real-time progress updates.",
+          ],
+          tech: ["Ionic Framework", "TypeScript", "Bootstrap", "SCSS"],
+          links: {
+            live: "https://play.google.com/store/apps/details?id=com.carterapp.retail&pcampaignid=web_share",
+            code: "",
+          },
+          internal:
+            "company project. Screenshots shown only to illustrate my UI work. All rights belong to the respective company.",
+        },
+        {
+          id: 1,
+          title: "Seekerpro",
+          subtitle: "Project & Task Management Web App • HTML/CSS/JS",
+          hero: "./assets/images/seekerpro_webapp.png",
+          summary:
+            "A task and project management web application UI featuring dashboards for tracking projects, tasks, users, and notifications.",
+          whatIdid: [
+            "Designed and implemented responsive dashboards displaying project status, pending tasks, and active team members using modern UI frameworks.",
+            "Created intuitive interfaces for managing project admins, assigning tasks, and setting reminders to enhance user productivity.",
+            "Developed clean, accessible layouts focused on usability and seamless navigation across different project management features.",
+          ],
+          tech: ["HTML", "CSS", "JS"],
+          links: { live: "", code: "" },
+          internal:
+            "company project. Screenshots shown only to illustrate my UI work. All rights belong to the respective company.",
+        },
+        {
+          id: 2,
+          title: "Tranzcars",
+          subtitle: "Car Rental web App • UI",
+          hero: "./assets/images/tranzcars.png",
+          summary:
+            "A self-drive car rental website UI featuring easy vehicle browsing, booking workflows, user profiles, and real-time support notifications.",
+          whatIdid: [
+            "Developed the user interface for the landing page, About, Contact and other sections strictly following the provided design layouts",
+            "Created responsive page layouts to ensure smooth viewing on both desktop and mobile devices.",
+            "Collaborated closely with designers to ensure the UI matched the intended user experience and visual details precisely.",
+          ],
+          tech: ["HTML", "SCSS"],
+          links: { live: "https://tranzcars.com", code: "" },
+          internal:
+            "company project. Screenshots shown only to illustrate my UI work. All rights belong to the respective company.",
+        },
+        {
+          id: 3,
+          title: "CCPS",
+          subtitle: "Insurance & Pension Portal",
+          hero: "./assets/images/ccps.png",
+          summary:
+            "A platform that helps companies manage employee insurance and pension payments efficiently. It allows generating quarterly insurance and pension reports.",
+          whatIdid: [
+            "Implemented token-based authentication to securely manage user sessions and protect sensitive data.",
+            "Integrated REST APIs to connect frontend interfaces with backend services for real-time data retrieval and updates.",
+            "Utilized RxJS for reactive programming, enabling efficient handling of asynchronous data streams and improving UI responsiveness.",
+          ],
+          tech: ["Angular", "Bootstrap", "SCSS"],
+          links: { live: "https://ccps.clikpaygroup.com", code: "" },
+          internal:
+            "company project. Screenshots shown only to illustrate my UI work. All rights belong to the respective company.",
+        },
+        {
+          id: 4,
+          title: "Architecture",
+          subtitle: "Architecture Portfolio • Personal Project",
+          hero: "./assets/images/architecture.png",
+          summary:
+            "The Architecture website is designed to showcase architectural works through a modern, clean interface enhanced with GSAP animations.",
+          whatIdid: [
+            "Translated design mockups into responsive HTML/CSS with pixel-perfect accuracy.",
+            "Implemented GSAP-powered animations to bring interactive and dynamic effects to the user interface.",
+            "Optimized HTML, CSS, and image assets for maintainability, faster load times, and ease of future enhancements.",
+          ],
+          tech: ["HTML", "JS", "GSAP"],
+          links: {
+            live: "https://malin-p.github.io/architecture/index.html",
+            code: "",
+          },
+          internal: "",
+        },
+      ];
+
+      // helper: fill panel
+      function openProject(id) {
+        const p = projects.find((x) => x.id === id);
+        const content = document.getElementById("detailContent");
+        content.innerHTML = `
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <img src="${p.hero}" alt="${
+          p.title
+        }" class="w-full rounded-md object-contain h-80" />
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold mb-1">${p.title}</h2>
+            <div class="text-sm text-slate-400 mb-3">${p.subtitle}</div>
+            <p class="text-slate-300 mb-4">${p.summary}</p>
+            <div class="text-sm text-slate-400 mb-2">What I did</div>
+            <ul class="list-disc ml-5 text-slate-300 mb-3">
+              ${p.whatIdid.map((i) => `<li>${i}</li>`).join("")}
+            </ul>
+            <div class="text-xs text-slate-400">Tech</div>
+            <div class="flex gap-2 mt-2">${p.tech
+              .map(
+                (t) =>
+                  `<span class="text-xs px-2 py-1 rounded-md glass">${t}</span>`
+              )
+              .join("")}</div>
+            <div class="mt-6 flex gap-3">
+            ${
+              p.links.live
+                ? `<a href="${p.links.live}" target="_blank" class="px-3 py-2 rounded-md border border-white/6">Live</a>`
+                : ""
+            }
+            ${
+              p.links.code
+                ? `<a href="${p.links.code}" target="_blank" class="px-3 py-2 rounded-md border border-white/6">Code</a>`
+                : ""
+            }
+            </div>
+          </div>
+        </div>
+        ${
+          p.internal
+            ? `<div class="mt-6 text-sm text-slate-400">Note : ${p.internal}</div>`
+            : ""
+        }
+      `;
+        // show panel
+        const wrap = document.getElementById("detailWrap");
+        wrap.style.display = "flex";
+        document.body.style.overflow = "hidden";
+        gsap.fromTo(
+          "#detailPanel",
+          { y: 40, opacity: 0, scale: 0.98 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }
+        );
+      }
+      /* timeline populate (from copy) */
+      const timelineList = document.getElementById("timelineList");
+      const timelineData = [
+        {
+          year: "2023-2024",
+          role: "Frontend Dev",
+          company: "Saihasoft technologies pvt ltd kerala, India",
+        },
+        {
+          year: "2022",
+          role: "Junior Frontend Dev",
+          company: "Saihasoft technologies pvt ltd  kerala, India",
+        },
+      ];
+      timelineData.forEach((t) => {
+        const wrap = document.createElement("div");
+        wrap.className = "p-3 rounded-lg glass";
+        wrap.innerHTML = `<div class="flex items-start gap-3"><div class="text-sm font-semibold">${t.year}</div><div><div class="font-medium">${t.role}</div><div class="text-sm text-slate-300">${t.company}</div></div></div>`;
+        timelineList.appendChild(wrap);
+      });
+      // attach click handlers
+      document.querySelectorAll("#grid article").forEach((a) => {
+        a.addEventListener("click", () => {
+          const id = Number(a.getAttribute("data-project"));
+          openProject(id);
+        });
+      });
+
+      // close
+      document.getElementById("closePanel").addEventListener("click", () => {
+        const wrap = document.getElementById("detailWrap");
+        gsap.to("#detailPanel", {
+          y: 30,
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            wrap.style.display = "none";
+            document.body.style.overflow = ""; // re-enable background scroll
+          },
+        });
+      });
+      // close by clicking outside
+      document.getElementById("detailWrap").addEventListener("click", (e) => {
+        if (e.target.id === "detailWrap") {
+          gsap.to("#detailPanel", {
+            y: 30,
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              document.getElementById("detailWrap").style.display = "none";
+              document.body.style.overflow = "";
+            },
+          });
+        }
+      });
+
+      // small link hover magnet
+      document.querySelectorAll(".accent-underline").forEach((el) => {
+        el.addEventListener("mouseenter", () =>
+          gsap.to(el, { x: 4, duration: 0.25 })
+        );
+        el.addEventListener("mouseleave", () =>
+          gsap.to(el, { x: 0, duration: 0.25 })
+        );
+      });
+
+      // smooth scroll for internal links
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+      //nav bar auto hide
+      document.addEventListener("DOMContentLoaded", function () {
+        var navBar = document.querySelector("header");
+
+        var st = window.scrollY;
+        var navHeight = navBar.offsetHeight + 15;
+
+        console.log(navHeight);
+
+        window.addEventListener("scroll", function () {
+          var nst = window.scrollY;
+          var isScrollingUp = nst < st;
+          var isScrollingDown = nst - 80 > st;
+
+          if (isScrollingUp) {
+            navBar.classList.add("sticky");
+            st = nst;
+          } else if (isScrollingDown) {
+            navBar.classList.remove("sticky");
+            st = nst;
+          }
+        });
+      });
+      //smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
