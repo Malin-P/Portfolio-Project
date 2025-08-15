@@ -216,20 +216,8 @@
         </div>
       </section>
       <div class="parent-container side-hero">
-        <!-- TIMELINE -->
-        <div id="timeline" class="glass rounded-2xl p-4 h-auto">
-          <div class="flex items-center justify-between">
-            <div class="font-semibold">Career Timeline</div>
-          </div>
-          <div class="mt-6 flex gap-4">
-            <div class="w-2">
-              <div class="timeline-line h-full rounded"></div>
-            </div>
-            <div class="flex-1 space-y-4" id="timelineList"></div>
-          </div>
-        </div>
         <!-- Right column: contact card + floating tech icons -->
-        <aside class="relative">
+        <aside class="relative md:order-1">
           <div class="glass p-6 rounded-xl card shadow-xl">
             <div class="flex items-center justify-between">
               <div>
@@ -333,6 +321,18 @@
             </div>
           </div>
         </aside>
+        <!-- TIMELINE -->
+        <div id="timeline" class="glass rounded-2xl p-4 h-auto">
+          <div class="flex items-center justify-between">
+            <div class="font-semibold">Career Timeline</div>
+          </div>
+          <div class="mt-6 flex gap-4">
+            <div class="w-2">
+              <div class="timeline-line h-full rounded"></div>
+            </div>
+            <div class="flex-1 space-y-4" id="timelineList"></div>
+          </div>
+        </div>
       </div>
 
       <!-- WORK / Projects — unconventional masonry w/ expand -->
@@ -609,7 +609,8 @@
             <div class="text-xs text-slate-400">Want to work together?</div>
             <div class="text-2xl font-bold">Let's build something useful.</div>
           </div>
-          <div class="flex gap-3 items-center">
+          <div
+            class="flex flex-col justify-start md:flex-row gap-3 items-center">
             <a
               href="mailto:malinpavanan@gmail.com"
               class="px-4 py-2 rounded-md glass">
@@ -631,7 +632,7 @@
     <!-- Project Detail Panel (hidden, slides in) -->
     <div
       id="detailWrap"
-      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-6">
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-2 md:p-6">
       <div id="detailPanel" class="panel rounded-xl p-6">
         <div class="w-full flex items-end justify-end">
           <button
