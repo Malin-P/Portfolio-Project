@@ -26,6 +26,11 @@ body {
   #grid {
     perspective: 1000px;
   }
+  article.card {
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
 }
 header {
   .nav-container {
