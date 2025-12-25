@@ -150,7 +150,7 @@
         </nav>
       </div>
     </header>
-
+    <div class="cursor"></div>
     <main class="container">
       <!-- HERO (unconventional: two-column with sideways CTA) -->
       <section id="home" class="md:mb-12 mb-6 md:flex md:gap-8">
@@ -395,12 +395,12 @@
                 <div class="text-lg text-slate-200 font-semibold">
                   Hauleer Wheels
                 </div>
-                <div class="text-xs text-slate-400">Mobile App</div>
+                <div class="text-xs text-slate-400">Mobile Application</div>
               </div>
             </div>
             <div class="mt-4">
               <h3 class="text-lg font-semibold">
-                Online Truck Booking Mobile App
+                Online Truck Booking Mobile Application
               </h3>
               <p class="text-slate-400 text-sm mt-2">
                 A cross-platform mobile application built using Ionic and
@@ -665,6 +665,51 @@
               </div>
             </div>
           </article>
+          <!-- Project Card 7 -->
+          <article
+            class="card p-4 rounded-xl magnet cursor-pointer"
+            data-project="6"
+            aria-label="Project: clikpay Money">
+            <div class="relative rounded-md overflow-hidden">
+              <img
+                src="./assets/images/clikpay_money.png"
+                alt="project screenshot"
+                class="w-full h-40 object-cover transition-all duration-500 transform group-hover:scale-105"
+                style="filter: grayscale(100%) brightness(40%)"
+                onmouseenter="this.style.filter='grayscale(0%) brightness(100%)';"
+                onmouseleave="this.style.filter='grayscale(100%) brightness(40%)';" />
+              <div class="absolute left-4 bottom-4">
+                <div class="text-lg text-slate-200 font-semibold">
+                  Clikpay Money
+                </div>
+                <div class="text-xs text-slate-400">Mobile Application</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">
+                FinTech mobile application and digital wallet.
+              </h3>
+              <p class="text-slate-400 text-sm mt-2">
+                CLIKPAY Money is a FinTech mobile application for Central
+                Africa, integrating a specific SEEG module for users in Gabon to
+                securely manage and pay electricity and water bills online.
+              </p>
+              <div
+                class="mt-4 grid grid-cols-[repeat(auto-fit,_minmax(130px,_1fr))] items-center gap-3">
+                <span class="text-xs px-3 py-1 rounded-full glass">
+                  Ionic/Angular
+                </span>
+                <span class="text-xs px-3 py-1 rounded-full glass">Scss</span>
+                <span class="text-xs px-3 py-1 rounded-full glass">
+                  TypeScript
+                </span>
+                <a
+                  class="ml-auto text-xs text-slate-300 h-8 w-20 p-1.5 flex items-center justify-center accent-underline">
+                  View
+                </a>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -772,17 +817,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- GSAP + Interaction Script -->
     <script>
+      // 1. Register Plugin
       gsap.registerPlugin(ScrollTrigger);
 
-      // Micro: header float
+      // 2. Simple UI Reveals (Header & H1)
       gsap.from("header", {
         y: -20,
         opacity: 0,
         duration: 0.8,
         ease: "power2.out",
       });
-
-      // Hero headline reveal
       gsap.from("h1", {
         y: 20,
         opacity: 0,
@@ -791,27 +835,48 @@
         ease: "power3.out",
       });
 
-      // Stagger project card entrance
-      gsap.utils.toArray("#grid article").forEach((card, i) => {
-        gsap.from(card, {
-          y: 30,
-          opacity: 0,
-          delay: i * 0.12,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 85%" },
-        });
-        // hover micro animation: image zoom
-        const img = card.querySelector("img");
-        card.addEventListener("mouseenter", () =>
-          gsap.to(img, { scale: 1.06, duration: 0.6, ease: "power3.out" })
-        );
-        card.addEventListener("mouseleave", () =>
-          gsap.to(img, { scale: 1, duration: 0.5, ease: "power3.out" })
-        );
+      // 3. Setup Project Cards for Batch Animation
+      // We set the initial state immediately so they don't "flash" on screen
+      gsap.set("#grid article", {
+        y: 40,
+        opacity: 0,
+        scale: 0.9,
+        rotationX: -15,
+        transformOrigin: "50% top",
       });
 
-      // tech cloud float
+      // 4. The "Batch" Entrance (High Performance)
+      ScrollTrigger.batch("#grid article", {
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationX: 0,
+            stagger: { each: 0.1, grid: "auto" },
+            duration: 0.8,
+            ease: "back.out(1.2)",
+            overwrite: true,
+          }),
+        start: "top 85%",
+      });
+
+      // 5. Individual Hover Animations & Tech Cloud
+      // Use a simple loop for interactions only (no ScrollTriggers here)
+      gsap.utils.toArray("#grid article").forEach((card) => {
+        const img = card.querySelector("img");
+
+        if (img) {
+          card.addEventListener("mouseenter", () =>
+            gsap.to(img, { scale: 1.06, duration: 0.6, ease: "power3.out" })
+          );
+          card.addEventListener("mouseleave", () =>
+            gsap.to(img, { scale: 1, duration: 0.5, ease: "power3.out" })
+          );
+        }
+      });
+
+      // 6. Tech cloud float
       gsap.to("#tech-cloud span", {
         y: -6,
         repeat: -1,
@@ -951,6 +1016,25 @@
           },
           internal: "",
         },
+        {
+          id: 6,
+          title: "Clikpay Money",
+          subtitle: "Mobile wallet application  • Ionic/Angular",
+          hero: "./assets/images/clikpay_money.png",
+          summary:
+            "CLIKPAY Money is a FinTech mobile application (built with Ionic & Angular) that provides digital wallet services and secure utility payments in Central Africa. I developed the integrated SEEG module for managing electricity and water bills online.",
+          whatIdid: [
+            "Developed the SEEG utility module using Ionic and Angular 16+, enabling users to manage and track electricity and water accounts in real-time.",
+            "Developed complex RxJS-driven logic to fetch and synchronize real-time meter balances with the mobile interface.",
+            "Designed and implemented reusable, high-performance UI components to optimize the mobile utility checkout experience.",
+          ],
+          tech: ["Ionic/Angular", "TypeScript", "Scss"],
+          links: {
+            live: "https://play.google.com/store/apps/details?id=com.clikpay.retail&hl=en",
+            code: "",
+          },
+          internal: "",
+        },
       ];
 
       // helper: fill panel
@@ -962,7 +1046,7 @@
           <div>
             <img src="${p.hero}" alt="${
           p.title
-        }" class="w-full rounded-md object-contain h-80" />
+        }" class="w-full rounded-md object-cover h-full" />
           </div>
           <div>
             <h2 class="text-2xl font-bold mb-1">${p.title}</h2>
@@ -973,7 +1057,7 @@
               ${p.whatIdid.map((i) => `<li>${i}</li>`).join("")}
             </ul>
             <div class="text-xs text-slate-400">Tech</div>
-            <div class="flex gap-2 mt-2">${p.tech
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2 mt-2">${p.tech
               .map(
                 (t) =>
                   `<span class="text-xs px-2 py-1 rounded-md glass">${t}</span>`

@@ -23,6 +23,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+  #grid {
+    perspective: 1000px;
+  }
 }
 header {
   .nav-container {
